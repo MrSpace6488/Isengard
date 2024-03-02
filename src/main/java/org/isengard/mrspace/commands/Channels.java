@@ -1,9 +1,7 @@
 package org.isengard.mrspace.commands;
 
 import discord4j.core.GatewayDiscordClient;
-import discord4j.core.object.entity.channel.Channel;
 
-import java.util.ArrayList;
 
 public class Channels extends Command{
     @Override
