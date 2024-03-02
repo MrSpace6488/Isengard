@@ -13,6 +13,7 @@ public class CommandHandler {
             commands.add(new Exit());
             commands.add(new Guilds());
             commands.add(new Guild());
+            commands.add(new Channels());
         }
     }
 

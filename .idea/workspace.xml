@@ -4,12 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b0f67f9b-6634-456f-8d88-3e0ddd2844ce" name="Changes" comment="Added guilds command">
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/isengard/mrspace/commands/Guild.java" afterDir="false" />
+    <list default="true" id="b0f67f9b-6634-456f-8d88-3e0ddd2844ce" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/isengard/mrspace/commands/Channels.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/isengard/mrspace/CommandHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/isengard/mrspace/CommandHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/isengard/mrspace/commands/Guilds.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/isengard/mrspace/commands/Guilds.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/isengard/mrspace/commands/Help.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/isengard/mrspace/commands/Help.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,6 +42,8 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "Application.Main.executor": "Run",
+    "Maven.Isengard [clean,package].executor": "Run",
+    "Maven.Isengard.executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "main",
@@ -111,7 +112,15 @@
       <option name="project" value="LOCAL" />
       <updated>1709396370119</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Added guild command">
+      <option name="closed" value="true" />
+      <created>1709409511875</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1709409511875</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -119,7 +128,8 @@
     <MESSAGE value="Added very basic shell functionality. (Help command and exit command)" />
     <MESSAGE value="small code cleanup" />
     <MESSAGE value="Added guilds command" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added guilds command" />
+    <MESSAGE value="Added guild command" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added guild command" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
