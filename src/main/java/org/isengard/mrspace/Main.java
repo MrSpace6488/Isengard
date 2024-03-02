@@ -14,12 +14,14 @@ public class Main {
         Scanner input = new Scanner(System.in);
         DiscordClient client;
         GatewayDiscordClient gateway;
+        CommandHandler ch = new CommandHandler();
+        String command;
 
         System.out.println("Please insert the bot token:");
 
         while (true) {
             try {
-                client = DiscordClient.create(input.next());
+                client = DiscordClient.create(input.nextLine());
                 break;
             } catch (IllegalArgumentException e) {
                 System.out.println("Please insert a valid token!");
@@ -32,7 +34,14 @@ public class Main {
         gateway.on(ReadyEvent.class).subscribe(tmod -> {
             User self = tmod.getSelf();
             System.out.println("Logged in as " + self.getUsername());
+            System.out.print("> ");
         });
 
+        //noinspection InfiniteLoopStatement
+        while (true){
+            command = input.nextLine();
+            ch.invoke(command, gateway);
+            System.out.print("> ");
+        }
     }
 }
