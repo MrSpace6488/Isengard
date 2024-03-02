@@ -3,6 +3,7 @@ package org.isengard.mrspace.commands;
 import discord4j.core.GatewayDiscordClient;
 import discord4j.core.object.entity.Guild;
 import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 public class Guilds extends Command{
     @Override
@@ -17,6 +18,13 @@ public class Guilds extends Command{
 
     @Override
     public void run(String[] args, GatewayDiscordClient gateway) {
+        if (org.isengard.mrspace.commands.Guild.getSelectedGuild() != null){
+            System.out.println("Selected guild:");
+            Mono<Guild> sGuild = org.isengard.mrspace.commands.Guild.getSelectedGuild();
+            sGuild.subscribe(guild -> System.out.println(guild.getName() +" ["+ guild.getId().asLong() + "]"));
+            System.out.println();
+        }
+        System.out.println("Guilds:");
         Flux<Guild> guilds = gateway.getGuilds();
         guilds.subscribe(guild -> System.out.println(guild.getName() +" ["+ guild.getId().asLong() + "]"));
     }

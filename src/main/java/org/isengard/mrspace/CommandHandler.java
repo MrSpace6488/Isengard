@@ -12,6 +12,7 @@ public class CommandHandler {
             commands.add(new Help());
             commands.add(new Exit());
             commands.add(new Guilds());
+            commands.add(new Guild());
         }
     }
 

@@ -8,6 +8,7 @@ public class Help extends Command{
     public void run(String[] args, GatewayDiscordClient gateway){
         if (args.length > 1) {
             System.out.println("Too many arguments");
+            help(false);
         } else if (args.length == 0) {
             this.list();
         } else {
