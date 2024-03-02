@@ -4,8 +4,6 @@ import discord4j.core.GatewayDiscordClient;
 import org.isengard.mrspace.CommandHandler;
 
 public class Help extends Command{
-    private String name;
-    private final String spacing = "                    ";
     @Override
     public void run(String[] args, GatewayDiscordClient gateway){
         if (args.length > 1) {
@@ -32,9 +30,10 @@ public class Help extends Command{
     }
 
     private void list(){
+        String spacing = "                    ";
         for (Command c :CommandHandler.getCommands()){
-            name = c.getClass().getSimpleName().toLowerCase();
-            System.out.print(name + spacing.substring(0,20-name.length()));
+            String name = c.getClass().getSimpleName().toLowerCase();
+            System.out.print(name + spacing.substring(0,20- name.length()));
             c.help(true);
         }
     }

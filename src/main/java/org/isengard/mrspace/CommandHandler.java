@@ -4,10 +4,9 @@ import discord4j.core.GatewayDiscordClient;
 import org.isengard.mrspace.commands.*;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class CommandHandler {
-    private final static ArrayList<Command> commands = new ArrayList<Command>();
+    private final static ArrayList<Command> commands = new ArrayList<>();
     public CommandHandler() {
         if (commands.isEmpty()){
             commands.add(new Help());
