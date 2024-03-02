@@ -11,6 +11,7 @@ public class CommandHandler {
         if (commands.isEmpty()){
             commands.add(new Help());
             commands.add(new Exit());
+            commands.add(new Guilds());
         }
     }
 
