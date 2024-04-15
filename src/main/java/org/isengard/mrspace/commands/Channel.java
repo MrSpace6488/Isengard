@@ -62,11 +62,22 @@ public class Channel extends Command{
     }
 
     private static void delete(long channelId, GatewayDiscordClient gateway) {
-        //TODO: delete channel method
-        Mono<discord4j.core.object.entity.channel.Channel> channel = gateway.getChannelById(Snowflake.of(channelId));
-        channel.flatMap(discord4j.core.object.entity.channel.Channel::delete).subscribe();
+        Mono<discord4j.core.object.entity.channel.Channel> channelMono = gateway.getChannelById(Snowflake.of(channelId));
 
+        channelMono.flatMap(Channel::deleteChannel)
+                .onErrorResume(Channel::handleDeletionFailure)
+                .block();
     }
+
+    private static Mono<Void> deleteChannel(discord4j.core.object.entity.channel.Channel channel) {
+        return channel.delete().then();
+    }
+
+    private static Mono<Void> handleDeletionFailure(Throwable throwable) {
+        System.out.println("Deletion failed. Check if the ID was correct.");
+        return Mono.empty(); // Returning Mono.empty() to resume the execution
+    }
+
 
     private static void rename(long channelId, String channelName) {
         //TODO: rename channel method
