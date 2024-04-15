@@ -9,9 +9,10 @@ import java.util.Scanner;
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
-public class Main {
+public class Starter {
+    protected static Scanner input;
     public static void main(String[] args) {
-        Scanner input = new Scanner(System.in);
+        input = new Scanner(System.in);
         DiscordClient client;
         GatewayDiscordClient gateway;
         CommandHandler ch = new CommandHandler();

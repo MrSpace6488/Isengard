@@ -4,11 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b0f67f9b-6634-456f-8d88-3e0ddd2844ce" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/isengard/mrspace/commands/Channels.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+    <list default="true" id="b0f67f9b-6634-456f-8d88-3e0ddd2844ce" name="Changes" comment="code cleanup">
+      <change afterPath="$PROJECT_DIR$/.idea/kotlinc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/isengard/mrspace/commands/Channel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/isengard/mrspace/CommandHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/isengard/mrspace/CommandHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/isengard/mrspace/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/isengard/mrspace/Starter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/isengard/mrspace/commands/Exit.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/isengard/mrspace/commands/Exit.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,18 +46,26 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "Application.Main.executor": "Run",
+    "Application.Starter.executor": "Run",
     "Maven.Isengard [clean,package].executor": "Run",
     "Maven.Isengard.executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "git-widget-placeholder": "main",
     "kotlin-language-version-configured": "true",
-    "onboarding.tips.debug.path": "/home/merijn/IdeaProjects/Isengard/src/main/java/org/isengard/mrspace/Main.java"
+    "onboarding.tips.debug.path": "/home/merijn/IdeaProjects/Isengard/src/main/java/org/isengard/mrspace/Main.java",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "settings.editor.selected.configurable": "terminal"
   }
 }]]></component>
   <component name="RunManager">
-    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="org.isengard.mrspace.Main" />
+    <configuration name="Starter" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="ALTERNATIVE_JRE_PATH" value="/usr/lib/jvm/default" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
+      <option name="MAIN_CLASS_NAME" value="org.isengard.mrspace.Starter" />
       <module name="Isengard" />
       <extension name="coverage">
         <pattern>
@@ -67,11 +79,14 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.Main" />
+        <item itemvalue="Application.Starter" />
       </list>
     </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="SvnConfiguration">
+    <configuration>$USER_HOME$/.subversion</configuration>
+  </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="b0f67f9b-6634-456f-8d88-3e0ddd2844ce" name="Changes" comment="" />
@@ -120,7 +135,23 @@
       <option name="project" value="LOCAL" />
       <updated>1709409511875</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Added channels command">
+      <option name="closed" value="true" />
+      <created>1709418714324</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1709418714324</updated>
+    </task>
+    <task id="LOCAL-00007" summary="code cleanup">
+      <option name="closed" value="true" />
+      <created>1709418738116</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1709418738116</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -129,7 +160,9 @@
     <MESSAGE value="small code cleanup" />
     <MESSAGE value="Added guilds command" />
     <MESSAGE value="Added guild command" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added guild command" />
+    <MESSAGE value="Added channels command" />
+    <MESSAGE value="code cleanup" />
+    <option name="LAST_COMMIT_MESSAGE" value="code cleanup" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

@@ -34,10 +34,15 @@ public class CommandHandler {
         System.arraycopy(completeCommand, 1, args, 0, args.length);
 
         Command runningCommand = getCommand(completeCommand[0].toLowerCase());
-        if (runningCommand != null){
-            runningCommand.run(args, gateway);
-        } else {
+
+
+        if (runningCommand == null){
             System.out.println("Command not found. Run help to see all commands.");
+        } else if (runningCommand.getClass().getSimpleName().equalsIgnoreCase("exit")){
+            Starter.input.close();
+            System.exit(0);
+        } else{
+            runningCommand.run(args, gateway);
         }
     }
 

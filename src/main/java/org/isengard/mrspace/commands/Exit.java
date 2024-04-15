@@ -1,6 +1,9 @@
 package org.isengard.mrspace.commands;
 
 import discord4j.core.GatewayDiscordClient;
+import org.isengard.mrspace.Starter;
+
+import java.util.Scanner;
 
 public class Exit extends Command{
 
@@ -16,6 +19,6 @@ public class Exit extends Command{
 
     @Override
     public void run(String[] args, GatewayDiscordClient gateway) {
-        System.exit(0);
+        System.out.println("well this is awkward... command broke?");
     }
 }
