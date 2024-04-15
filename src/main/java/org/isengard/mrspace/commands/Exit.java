@@ -20,5 +20,7 @@ public class Exit extends Command{
     @Override
     public void run(String[] args, GatewayDiscordClient gateway) {
         System.out.println("well this is awkward... command broke?");
+        //The code for this method is actually in the CommandHandler in case you are actually looking for it.
+        //If this executes, then something is indeed broken
     }
 }

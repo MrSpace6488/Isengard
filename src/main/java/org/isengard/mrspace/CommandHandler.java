@@ -14,6 +14,7 @@ public class CommandHandler {
             commands.add(new Guilds());
             commands.add(new Guild());
             commands.add(new Channels());
+            commands.add(new Channel());
         }
     }
 

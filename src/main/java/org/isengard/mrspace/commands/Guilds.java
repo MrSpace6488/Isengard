@@ -16,6 +16,8 @@ public class Guilds extends Command{
         }
     }
 
+
+
     @Override
     public void run(String[] args, GatewayDiscordClient gateway) {
         if (org.isengard.mrspace.commands.Guild.getSelectedGuild() != null){

@@ -26,38 +26,39 @@ public class Guild extends Command{
         switch (args.length){
             case 0:
                 help(false);
-                break;
+                return;
             case 1:
                 System.out.println("Missing arguments.");
                 help(false);
-                break;
+                return;
             case 2:
-                switch (args[0].toLowerCase()){
-                    case "leave":
-                        try {
-                            long id = Long.parseLong(args[1]);
-                            leave(id, gateway);
-                        } catch (NumberFormatException e){
-                            System.out.println("Invalid server ID.");
-                        }
-                        break;
-                    case "select":
-                        try {
-                            long id = Long.parseLong(args[1]);
-                            select(id, gateway);
-                        } catch (NumberFormatException e) {
-                            System.out.println("Invalid server ID.");
-                        }
-                        break;
-                    default:
-                        System.out.println("Unknown argument '"+args[1]+"'.");
-                        break;
-                }
                 break;
 
             default:
                 System.out.println("Too many arguments.");
                 help(false);
+                return;
+        }
+
+        switch (args[0].toLowerCase()){
+            case "leave":
+                try {
+                    long id = Long.parseLong(args[1]);
+                    leave(id, gateway);
+                } catch (NumberFormatException e){
+                    System.out.println("Invalid server ID.");
+                }
+                break;
+            case "select":
+                try {
+                    long id = Long.parseLong(args[1]);
+                    select(id, gateway);
+                } catch (NumberFormatException e) {
+                    System.out.println("Invalid server ID.");
+                }
+                break;
+            default:
+                System.out.println("Unknown argument '"+args[1]+"'.");
                 break;
         }
     }

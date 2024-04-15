@@ -1,7 +1,11 @@
 package org.isengard.mrspace.commands;
 
 import discord4j.core.GatewayDiscordClient;
+import discord4j.core.object.entity.channel.Category;
 import discord4j.core.object.entity.channel.Channel;
+import discord4j.core.object.entity.channel.TextChannel;
+import discord4j.core.object.entity.channel.VoiceChannel;
+import reactor.core.publisher.Mono;
 
 import java.util.ArrayList;
 
@@ -17,29 +21,44 @@ public class Channels extends Command{
 
     }
 
+    private void printChannels(Channel channel) {
+        String name;
+        long id = channel.getId().asLong();
+        String type = channel.getType().name();
+
+        switch (channel.getType()) {
+            case GUILD_TEXT:
+                name = ((TextChannel) channel).getName();
+                type = "(Text channel)";
+                break;
+            case GUILD_VOICE:
+                name = ((VoiceChannel) channel).getName();
+                type = "(Voice channel)";
+                break;
+            case GUILD_CATEGORY:
+                name = ((Category) channel).getName();
+                type = "(Category)";
+                break;
+            default:
+                name = "Unknown";
+                type = "(Unknown)";
+                break;
+
+        }
+        System.out.println(name + " [" + id + "] " + type);
+    }
+
+
     @Override
     public void run(String[] args, GatewayDiscordClient gateway) {
-        if (Guild.getSelectedGuild() != null) {
-            Guild.getSelectedGuild().flatMapMany(discord4j.core.object.entity.Guild::getChannels)
-                    .subscribe(channel -> {
-                        System.out.print(channel.getName() + " [" + channel.getId().asLong() + "] ");
-                        switch (channel.getType().name()){
-                            case "GUILD_CATEGORY":
-                                System.out.println("(Category)");
-                                break;
-                            case "GUILD_TEXT":
-                                System.out.println("(Text channel)");
-                                break;
-                            case "GUILD_VOICE":
-                                System.out.println("(Voice channel)");
-                                break;
-                            default:
-                                System.out.println("(Unknown)");
-                                break;
-                        }
-                    });
-        } else {
+
+        Mono<discord4j.core.object.entity.Guild> guild = Guild.getSelectedGuild();
+
+        if (guild == null) {
             System.out.println("No guild selected. Please select a guild using the 'guild select' command");
+            return;
         }
+        guild.flatMapMany(discord4j.core.object.entity.Guild::getChannels)
+                .subscribe(this::printChannels);
     }
 }
