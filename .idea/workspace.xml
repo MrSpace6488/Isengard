@@ -40,7 +40,7 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "Application.Main.executor": "Run",
-    "Application.Starter.executor": "Run",
+    "Application.Starter.executor": "Debug",
     "Maven.Isengard [clean,package].executor": "Run",
     "Maven.Isengard.executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",

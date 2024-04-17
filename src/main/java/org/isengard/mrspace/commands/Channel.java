@@ -42,10 +42,16 @@ public class Channel extends Command{
                     long id = Long.parseLong(args[1]);
                     delete(id, gateway);
                 } catch (NumberFormatException e) {
-                    System.out.println("Unknown argument '"+args[1]+"'.");
+                    System.out.println("Invalid channel ID.");
                 }
                 break;
             case "rename":
+                try {
+                    long id = Long.parseLong(args[1]);
+                    rename(id, args[1], gateway);
+                } catch (NumberFormatException e) {
+                    System.out.println("Invalid channel ID.");
+                }
                 break;
             case "select":
                 try {
@@ -58,16 +64,7 @@ public class Channel extends Command{
     }
 
     private static void select(long id, GatewayDiscordClient gateway){
-        Mono<discord4j.core.object.entity.channel.Channel> test = gateway.getChannelById(Snowflake.of(id));
-            test.subscribe(
-                channel -> {
-                    selectedChannel = channel;
-                },
-                error -> {
-                    System.out.println("Error retrieving channel: " + error.getMessage());
-                }
-            );
-            test.onErrorComplete().block();
+        selectedChannel = getChannel(id, gateway);
     }
 
     private static void create(String name){
@@ -75,28 +72,28 @@ public class Channel extends Command{
     }
 
     private static void delete(long channelId, GatewayDiscordClient gateway) {
-        Mono<discord4j.core.object.entity.channel.Channel> channelMono = gateway.getChannelById(Snowflake.of(channelId));
-
-        channelMono.flatMap(Channel::deleteChannel)
-                .onErrorResume(Channel::handleDeletionFailure)
-                .block();
+        discord4j.core.object.entity.channel.Channel c;
+        if ((c = getChannel(channelId, gateway)) != null){
+            c.delete();
+        }
     }
 
-    private static Mono<Void> deleteChannel(discord4j.core.object.entity.channel.Channel channel) {
-        return channel.delete().then();
-    }
-
-    private static Mono<Void> handleDeletionFailure(Throwable throwable) {
-        System.out.println("Deletion failed. Check if the ID was correct.");
-        return Mono.empty();
-    }
-
-
-    private static void rename(long channelId, String channelName) {
-        //TODO: rename channel method
+    
+    //TODO: rename channel method
+    private static void rename(long channelId, String channelName, GatewayDiscordClient gateway) {
     }
 
     public static discord4j.core.object.entity.channel.Channel getSelectedChannel() {
         return selectedChannel;
+    }
+
+    private static discord4j.core.object.entity.channel.Channel getChannel(long id, GatewayDiscordClient gateway) {
+        return gateway.getChannelById(Snowflake.of(id))
+                .onErrorResume(error -> {
+                    System.out.println("Error retrieving channel: " + error.getMessage());
+                    return Mono.empty();
+                })
+                .blockOptional()
+                .orElse(null);
     }
 }
