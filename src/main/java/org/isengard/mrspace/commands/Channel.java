@@ -6,7 +6,7 @@ import reactor.core.publisher.Mono;
 
 public class Channel extends Command{
 
-    private static Mono<discord4j.core.object.entity.channel.Channel> selectedChannel;
+    private static discord4j.core.object.entity.channel.Channel selectedChannel;
 
     @Override
     protected void help(boolean list) {
@@ -16,7 +16,6 @@ public class Channel extends Command{
     @Override
     public void run(String[] args, GatewayDiscordClient gateway) {
         //TODO: run method of channel command
-        String command = args[0].toLowerCase();
         switch (args.length){
             case 0:
                 help(false);
@@ -26,7 +25,7 @@ public class Channel extends Command{
                 help(false);
                 return;
             case 2:
-                if ("rename".equals(command)) return;
+                if ("rename".equalsIgnoreCase(args[0])) return;
             case 3:
                 break;
             default:
@@ -35,7 +34,7 @@ public class Channel extends Command{
                 return;
         }
 
-        switch (command){
+        switch (args[0].toLowerCase()){
             case "create":
                 break;
             case "delete":
@@ -49,12 +48,26 @@ public class Channel extends Command{
             case "rename":
                 break;
             case "select":
-                break;
+                try {
+                    long id = Long.parseLong(args[1]);
+                    select(id, gateway);
+                } catch (NumberFormatException e) {
+                    System.out.println("Invalid channel ID.");
+                }
         }
     }
 
-    private static void select(long selectedServer){
-        //TODO: select channel method
+    private static void select(long id, GatewayDiscordClient gateway){
+        Mono<discord4j.core.object.entity.channel.Channel> test = gateway.getChannelById(Snowflake.of(id));
+            test.subscribe(
+                channel -> {
+                    selectedChannel = channel;
+                },
+                error -> {
+                    System.out.println("Error retrieving channel: " + error.getMessage());
+                }
+            );
+            test.onErrorComplete().block();
     }
 
     private static void create(String name){
@@ -75,11 +88,15 @@ public class Channel extends Command{
 
     private static Mono<Void> handleDeletionFailure(Throwable throwable) {
         System.out.println("Deletion failed. Check if the ID was correct.");
-        return Mono.empty(); // Returning Mono.empty() to resume the execution
+        return Mono.empty();
     }
 
 
     private static void rename(long channelId, String channelName) {
         //TODO: rename channel method
+    }
+
+    public static discord4j.core.object.entity.channel.Channel getSelectedChannel() {
+        return selectedChannel;
     }
 }
