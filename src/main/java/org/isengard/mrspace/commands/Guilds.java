@@ -28,6 +28,11 @@ public class Guilds extends Command{
         }
         System.out.println("Guilds:");
         Flux<Guild> guilds = gateway.getGuilds();
-        guilds.subscribe(guild -> System.out.println(guild.getName() +" ["+ guild.getId().asLong() + "]"));
+        guilds.flatMap(this::printGuilds).blockLast();
+
+    }
+    private Mono<Void> printGuilds(Guild guild){
+        System.out.println(guild.getName() +" ["+ guild.getId().asLong() + "]");
+        return Mono.empty();
     }
 }

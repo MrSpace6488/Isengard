@@ -4,6 +4,8 @@ import discord4j.core.DiscordClient;
 import discord4j.core.event.domain.lifecycle.ReadyEvent;
 import discord4j.core.object.entity.User;
 import discord4j.core.GatewayDiscordClient;
+import discord4j.gateway.intent.Intent;
+import discord4j.gateway.intent.IntentSet;
 
 import java.util.Scanner;
 
@@ -22,14 +24,17 @@ public class Starter {
 
         while (true) {
             try {
-                client = DiscordClient.create(input.nextLine());
+                gateway = DiscordClient.create(input.nextLine())
+                        .gateway()
+                        .setEnabledIntents(IntentSet.of(Intent.GUILD_MEMBERS))
+                        .login()
+                        .block();
                 break;
             } catch (IllegalArgumentException e) {
                 System.out.println("Please insert a valid token!");
             }
         }
 
-        gateway = client.login().block();
         assert gateway != null;
 
         gateway.on(ReadyEvent.class).subscribe(tmod -> {
