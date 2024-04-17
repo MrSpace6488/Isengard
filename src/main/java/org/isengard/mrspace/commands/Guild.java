@@ -12,7 +12,7 @@ public class Guild extends Command{
     private static discord4j.core.object.entity.Guild selectedGuild;
     @Override
     protected void help(boolean list) {
-        System.out.println("To manage guilds. you can select a guild and leave a guild using this command.");
+        System.out.println("To manage guilds. You can select a guild and leave a guild using this command.");
         if (!list){
             System.out.println();
             System.out.println("Usage:");

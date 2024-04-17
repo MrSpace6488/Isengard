@@ -13,7 +13,16 @@ public class Channel extends Command{
 
     @Override
     protected void help(boolean list) {
-        //TODO: help menu
+        System.out.println("To manage channels. You can create, delete and rename channels/categories using this command.");
+        if (!list) {
+            System.out.println();
+            System.out.println("Usage:");
+            System.out.println("channel select [channel id]");
+            System.out.println("channel delete [channel id]");
+            System.out.println("channel create [type] [name]");
+            System.out.println("(Possible types: text, voice, category.)");
+            System.out.println("channel rename [channel id] [name]");
+        }
     }
 
     @Override
@@ -77,7 +86,7 @@ public class Channel extends Command{
     private static void create(String name, String type){
         discord4j.core.object.entity.Guild g;
         if ((g = Guild.getSelectedGuild()) == null) {
-            System.out.println("No guild selected. Select a guild with 'guild select <guildId>'");
+            System.out.println("No guild selected. Select a guild with 'guild select [guild id]'");
             return;
         }
 
@@ -132,11 +141,11 @@ public static discord4j.core.object.entity.channel.Channel getSelectedChannel() 
 
 private static discord4j.core.object.entity.channel.Channel getChannel(long id, GatewayDiscordClient gateway) {
     return gateway.getChannelById(Snowflake.of(id))
-            .onErrorResume(error -> {
-                System.out.println("Error retrieving channel: " + error.getMessage());
-                return Mono.empty();
-            })
-            .blockOptional()
-            .orElse(null);
-}
+        .onErrorResume(error -> {
+            System.out.println("Error retrieving channel: " + error.getMessage());
+            return Mono.empty();
+        })
+        .blockOptional()
+        .orElse(null);
+    }
 }
