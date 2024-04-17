@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Guild extends Command{
-    private static Mono<discord4j.core.object.entity.Guild> selectedGuild;
+    private static discord4j.core.object.entity.Guild selectedGuild;
     @Override
     protected void help(boolean list) {
         System.out.println("To manage guilds. you can select a guild and leave a guild using this command.");
@@ -63,7 +63,7 @@ public class Guild extends Command{
         }
     }
 
-    public static Mono<discord4j.core.object.entity.Guild> getSelectedGuild(){
+    public static discord4j.core.object.entity.Guild getSelectedGuild(){
         return selectedGuild;
     }
 
@@ -77,12 +77,13 @@ public class Guild extends Command{
     }
 
     private void select(long id, GatewayDiscordClient gateway){
-        if (isInGuild(id, gateway)){
-            selectedGuild = gateway.getGuildById(Snowflake.of(id));
-            System.out.println("Selected guild " + id);
-        } else {
-            System.out.println("Guild id " + id + " not found.");
-        }
+        selectedGuild = gateway.getGuildById(Snowflake.of(id))
+                .onErrorResume(error -> {
+                    System.out.println("Error retrieving channel: " + error.getMessage());
+                    return Mono.empty();
+                })
+                .blockOptional()
+                .orElse(null);
     }
 
     private boolean isInGuild(long id, GatewayDiscordClient gateway){

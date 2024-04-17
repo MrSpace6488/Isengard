@@ -6,8 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="b0f67f9b-6634-456f-8d88-3e0ddd2844ce" name="Changes" comment="code cleanup">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/isengard/mrspace/commands/Channel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/isengard/mrspace/commands/Channel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/isengard/mrspace/commands/Channels.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/isengard/mrspace/commands/Channels.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/isengard/mrspace/commands/Guild.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/isengard/mrspace/commands/Guild.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/isengard/mrspace/commands/Guilds.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/isengard/mrspace/commands/Guilds.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

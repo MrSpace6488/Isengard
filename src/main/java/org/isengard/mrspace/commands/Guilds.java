@@ -22,8 +22,8 @@ public class Guilds extends Command{
     public void run(String[] args, GatewayDiscordClient gateway) {
         if (org.isengard.mrspace.commands.Guild.getSelectedGuild() != null){
             System.out.println("Selected guild:");
-            Mono<Guild> sGuild = org.isengard.mrspace.commands.Guild.getSelectedGuild();
-            sGuild.subscribe(guild -> System.out.println(guild.getName() +" ["+ guild.getId().asLong() + "]"));
+            Guild sGuild = org.isengard.mrspace.commands.Guild.getSelectedGuild();
+            System.out.println(sGuild.getName() +" ["+ sGuild.getId().asLong() + "]");
             System.out.println();
         }
         System.out.println("Guilds:");

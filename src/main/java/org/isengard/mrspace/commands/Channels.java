@@ -52,13 +52,12 @@ public class Channels extends Command{
     @Override
     public void run(String[] args, GatewayDiscordClient gateway) {
 
-        Mono<discord4j.core.object.entity.Guild> guild = Guild.getSelectedGuild();
+        discord4j.core.object.entity.Guild guild = Guild.getSelectedGuild();
 
         if (guild == null) {
             System.out.println("No guild selected. Please select a guild using the 'guild select' command");
             return;
         }
-        guild.flatMapMany(discord4j.core.object.entity.Guild::getChannels)
-                .subscribe(this::printChannels);
+        guild.getChannels().subscribe(this::printChannels);
     }
 }

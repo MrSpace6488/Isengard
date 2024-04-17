@@ -39,6 +39,7 @@ public class Channel extends Command{
 
         switch (args[0].toLowerCase()){
             case "create":
+                create(args[2], args[1]);
                 break;
             case "delete":
                 try {
@@ -73,8 +74,27 @@ public class Channel extends Command{
         selectedChannel = getChannel(id, gateway);
     }
 
-    private static void create(String name){
-        //TODO: create channel method
+    private static void create(String name, String type){
+        discord4j.core.object.entity.Guild g;
+        if ((g = Guild.getSelectedGuild()) == null) {
+            System.out.println("No guild selected. Select a guild with 'guild select <guildId>'");
+            return;
+        }
+
+        switch (type) {
+            case "text":
+                g.createTextChannel(name).block();
+                break;
+            case "voice":
+                g.createVoiceChannel(name).block();
+                break;
+            case "category":
+                g.createCategory(name).block();
+                break;
+            default:
+                System.out.println("Unknown channel type.");
+        }
+
     }
 
     private static void delete(long channelId, GatewayDiscordClient gateway) {
