@@ -16,6 +16,7 @@ public class CommandHandler {
             commands.add(new Channels());
             commands.add(new Channel());
             commands.add(new Users());
+            commands.add(new User());
         }
     }
 

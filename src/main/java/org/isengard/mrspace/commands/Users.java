@@ -8,6 +8,12 @@ import reactor.core.publisher.Mono;
 public class Users extends Command{
     @Override
     protected void help(boolean list) {
+        System.out.println("Lists all users of the selected guild. Also puts the ID the username name.");
+        if (!list){
+            System.out.println();
+            System.out.println("Usage:");
+            System.out.println("channels");
+        }
 
     }
 

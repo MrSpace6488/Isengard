@@ -1,10 +1,9 @@
 package org.isengard.mrspace.commands;
 
 import discord4j.core.GatewayDiscordClient;
-import discord4j.core.object.entity.channel.Category;
+import discord4j.core.object.entity.channel.*;
 import discord4j.core.object.entity.channel.Channel;
-import discord4j.core.object.entity.channel.TextChannel;
-import discord4j.core.object.entity.channel.VoiceChannel;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.util.ArrayList;
@@ -21,7 +20,7 @@ public class Channels extends Command{
 
     }
 
-    private void printChannels(Channel channel) {
+    private Mono<Void> printChannels(Channel channel) {
         String name;
         long id = channel.getId().asLong();
         String type = channel.getType().name();
@@ -46,6 +45,7 @@ public class Channels extends Command{
 
         }
         System.out.println(name + " [" + id + "] " + type);
+        return Mono.empty();
     }
 
 
@@ -58,6 +58,7 @@ public class Channels extends Command{
             System.out.println("No guild selected. Please select a guild using the 'guild select' command");
             return;
         }
-        guild.getChannels().subscribe(this::printChannels);
+        Flux<GuildChannel> channels = guild.getChannels();
+        channels.flatMap(this::printChannels).blockLast();
     }
 }
