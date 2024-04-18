@@ -3,6 +3,7 @@ package org.isengard.mrspace.commands;
 import discord4j.common.util.Snowflake;
 import discord4j.core.GatewayDiscordClient;
 import discord4j.core.object.entity.Member;
+import discord4j.core.object.entity.Role;
 import reactor.core.publisher.Mono;
 
 import java.util.ArrayList;
@@ -13,7 +14,7 @@ import java.util.List;
 public class User extends Command{
 
     private static Member selectedUser;
-    private GatewayDiscordClient gateway;
+    private static GatewayDiscordClient gateway;
 
 
     @Override
@@ -23,8 +24,8 @@ public class User extends Command{
 
     @Override
     public void run(String[] args, GatewayDiscordClient gateway) {
-        if (this.gateway == null){
-            this.gateway = gateway;
+        if (User.gateway == null){
+            User.gateway = gateway;
         }
         if (Guild.getSelectedGuild() == null){
             System.out.println("No guild selected.");
@@ -83,25 +84,75 @@ public class User extends Command{
                 } catch (NumberFormatException e) {
                     System.out.println("Invalid ID.");
                 }
+                break;
+            case "nick":
+                try {
+                     nick(Long.parseLong(args[1]), args[2]);
+                } catch (NumberFormatException e) {
+                    System.out.println("Invalid ID.");
+                }
+                break;
+            case "role":
+                if ("add".equalsIgnoreCase(args[1])){
+                    try {
+                        addRole(Long.parseLong(args[3]),Long.parseLong(args[2]));
+                    } catch (NumberFormatException e) {
+                        System.out.println("Invalid ID.");
+                    }
+                } else if ("remove".equalsIgnoreCase(args[1])){
+                    try {
+                        removeRole(Long.parseLong(args[3]),Long.parseLong(args[2]));
+                    } catch (NumberFormatException e) {
+                        System.out.println("Invalid ID.");
+                    }
+
+                } else {
+                    System.out.println("Unknown argument '"+args[1]+"'.");
+                }
         }
 
 
     }
 
     private void select(long userID){
-        selectedUser = getUser(userID, gateway);
+        selectedUser = getUser(userID);
     }
 
     private void nick(long userID, String name){
-
+        Member m;
+        if ((m = getUser(userID)) == null) {
+            return;
+        }
+        m.edit().withNicknameOrNull(name).block();
     }
 
     private void addRole(long userId, long roleId){
+        Member m;
+        if ((m = getUser(userId)) == null) {
+            return;
+        }
+
+        Role r;
+        if ((r = getRole(roleId)) == null){
+            return;
+        }
+
+        m.addRole(r.getId()).block();
 
     }
 
     private void removeRole(long userId, long roleId){
+        Member m;
+        if ((m = getUser(userId)) == null) {
+            return;
+        }
 
+        Role r;
+        if ((r = getRole(roleId)) == null){
+            return;
+        }
+
+        m.removeRole(r.getId()).block();
     }
 
     private void ban(long userId, String reason){
@@ -116,10 +167,10 @@ public class User extends Command{
 
     }
 
-    private static Member getUser(long id, GatewayDiscordClient gateway) {
+    private static Member getUser(long id) {
         return gateway.getMemberById(Guild.getSelectedGuild().getId(), Snowflake.of(id))
                 .onErrorResume(error -> {
-                    System.out.println("Error retrieving channel: " + error.getMessage());
+                    System.out.println("Error retrieving member: " + error.getMessage());
                     return Mono.empty();
                 })
                 .blockOptional()
@@ -127,5 +178,15 @@ public class User extends Command{
     }
     public static Member getSelectedUser() {
         return selectedUser;
+    }
+
+    private static Role getRole(long id){
+        return gateway.getRoleById(Guild.getSelectedGuild().getId(), Snowflake.of(id))
+                .onErrorResume(error -> {
+                    System.out.println("Error retrieving role: " + error.getMessage());
+                    return Mono.empty();
+                })
+                .blockOptional()
+                .orElse(null);
     }
 }

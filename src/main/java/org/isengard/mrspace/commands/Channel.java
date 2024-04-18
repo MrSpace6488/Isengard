@@ -119,6 +119,7 @@ public class Channel extends Command{
     private static void rename(long channelId, String channelName, GatewayDiscordClient gateway) {
         discord4j.core.object.entity.channel.Channel c;
         if ((c = getChannel(channelId, gateway)) == null){
+            System.out.println("Missing arguments.");
             return;
         }
         if (c instanceof TextChannel) {
@@ -130,6 +131,8 @@ public class Channel extends Command{
         } else if (c instanceof Category) {
             Category e = (Category) c;
             e.edit().withName(channelName).block();
+        } else {
+            System.out.println("Unknown channel type.");
         }
 
     }
