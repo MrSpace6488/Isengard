@@ -4,6 +4,8 @@ import discord4j.common.util.Snowflake;
 import discord4j.core.GatewayDiscordClient;
 import discord4j.core.object.entity.Member;
 import discord4j.core.object.entity.Role;
+import discord4j.core.spec.BanQuerySpec;
+import discord4j.core.spec.legacy.LegacyBanQuerySpec;
 import reactor.core.publisher.Mono;
 
 import java.util.ArrayList;
@@ -32,9 +34,9 @@ public class User extends Command{
             return;
         }
 
-        List<String> args2 = Collections.singletonList("select");
-        List<String> args3 = Arrays.asList("nick", "ban", "kick");
-        List<String> args4 = Arrays.asList("role", "timeout");
+        List<String> args2 = Arrays.asList("select", "ban", "kick");
+        List<String> args3 = Collections.singletonList("nick");
+        List<String> args4 = Collections.singletonList("role");
 
         List<String> allArgs = new ArrayList<>(args2);
         allArgs.addAll(args3);
@@ -109,6 +111,20 @@ public class User extends Command{
                 } else {
                     System.out.println("Unknown argument '"+args[1]+"'.");
                 }
+            case "ban":
+                try {
+                    ban(Long.parseLong(args[1]));
+                } catch (NumberFormatException e) {
+                    System.out.println("Invalid ID.");
+                }
+                break;
+            case "kick":
+                try {
+                    kick(Long.parseLong(args[1]));
+                } catch (NumberFormatException e) {
+                    System.out.println("Invalid ID.");
+                }
+                break;
         }
 
 
@@ -155,17 +171,26 @@ public class User extends Command{
         m.removeRole(r.getId()).block();
     }
 
-    private void ban(long userId, String reason){
+    private void ban(long userId){
+        Member m;
+        if ((m = getUser(userId)) == null) return;
+        if (Guild.getSelectedGuild() == null) return;
 
+        Guild.getSelectedGuild().ban(
+                m.getId()
+        ).block();
     }
 
-    private void kick(long userId, String reason) {
+    private void kick(long userId) {
+        Member m;
+        if ((m = getUser(userId)) == null) return;
+        if (Guild.getSelectedGuild() == null) return;
 
+        Guild.getSelectedGuild().kick(
+                m.getId()
+        ).block();
     }
 
-    private void timeout(long userId, String reason, short length){
-
-    }
 
     private static Member getUser(long id) {
         return gateway.getMemberById(Guild.getSelectedGuild().getId(), Snowflake.of(id))
